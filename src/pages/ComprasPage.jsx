@@ -1,0 +1,35 @@
+/* eslint-disable no-unused-vars */
+import { Card } from '../componentes/Card';
+import React, { useContext} from 'react'
+import { ProductosContext } from '../context/ProductosContext';
+import { CarritoContext } from '../context/CarritoContext';
+
+export const ComprasPage = () => {
+ const {productos} = useContext(ProductosContext);
+ const {
+ agregarCompra,
+ eliminarCompra,
+} = useContext(CarritoContext);
+
+const handleAgregar=(compra)=>{
+   agregarCompra(compra);
+}
+const handleQuitar=(id)=>{
+   eliminarCompra(id)
+} 
+  return (
+    <>
+    <h1>Compras</h1>
+    <hr />
+    {productos && productos.map(producto=>(
+      <Card key={producto.id} 
+      imagen={producto.image} 
+      titulo={producto.title} 
+      descripcion={producto.description} 
+      precio={producto.price} 
+      handleAgregar={()=>handleAgregar(producto)} 
+      handleQuitar={()=>handleQuitar(producto.id)}/>
+      ))}
+    </>
+  )
+}
